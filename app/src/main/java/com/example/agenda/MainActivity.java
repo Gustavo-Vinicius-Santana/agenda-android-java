@@ -15,8 +15,6 @@ public class MainActivity extends Activity {
 
         Toast.makeText(this, "Hello world!", Toast.LENGTH_LONG).show();
 
-        TextView mensage = new TextView(this);
-        mensage.setText("hello world!");
-        setContentView(mensage);
+        setContentView(R.layout.activity_main);
     }
 }
