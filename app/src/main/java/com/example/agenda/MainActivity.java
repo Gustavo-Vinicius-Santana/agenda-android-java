@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,7 +20,7 @@ public class MainActivity extends Activity {
 
         Toast.makeText(this, "Hello world!", Toast.LENGTH_LONG).show();
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_lista_alunos);
 
         List<String> alunos = new ArrayList<>(Arrays.asList("Alex", "Fran", "josé", "maria"));
 
