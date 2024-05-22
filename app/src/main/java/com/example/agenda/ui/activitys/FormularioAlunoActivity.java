@@ -1,4 +1,4 @@
-package com.example.agenda;
+package com.example.agenda.ui.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.agenda.R;
 import com.example.agenda.dao.alunoDAO;
 import com.example.agenda.models.Aluno;
 
