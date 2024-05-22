@@ -34,6 +34,11 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, FormularioAlunoActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         alunoDAO dao = new alunoDAO();
         ListView listaAlunos = findViewById(R.id.activity_main_list_alun);

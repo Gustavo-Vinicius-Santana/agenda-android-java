@@ -47,11 +47,9 @@ public class FormularioAlunoActivity extends AppCompatActivity {
                 String telefone = campoTelefone.getText().toString();
 
                 Aluno alunoCriado = new Aluno(nome, email, telefone);
-
                 dao.salva(alunoCriado);
 
-                Intent intent = new Intent(FormularioAlunoActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
