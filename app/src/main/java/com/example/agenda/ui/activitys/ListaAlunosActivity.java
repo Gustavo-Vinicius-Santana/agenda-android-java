@@ -19,6 +19,9 @@ import com.example.agenda.dao.alunoDAO;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ListaAlunosActivity extends AppCompatActivity {
+    private final alunoDAO dao = new alunoDAO();
+
+    public static final String TITLE_APPBAR = "lista de alunos";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,22 +34,32 @@ public class ListaAlunosActivity extends AppCompatActivity {
             return insets;
         });
 
-        setTitle("lista de alunos");
+        setTitle(TITLE_APPBAR);
+        floatBtnOpenFormu();
+    }
 
+    private void floatBtnOpenFormu() {
         FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_main_abrir_formulario);
         botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class));
+                abreFormulario();
             }
         });
+    }
+
+    private void abreFormulario() {
+        startActivity(new Intent(this, FormularioAlunoActivity.class));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        alunoDAO dao = new alunoDAO();
+        mostrarLista();
+    }
+
+    private void mostrarLista() {
         ListView listaAlunos = findViewById(R.id.activity_main_list_alun);
         listaAlunos.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
