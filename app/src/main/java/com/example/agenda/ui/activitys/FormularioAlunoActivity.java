@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,6 +22,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class FormularioAlunoActivity extends AppCompatActivity {
 
+    public static final String TITULO_APPBAR = "Cadastro de alunos";
+    private EditText campoNome;
+    private EditText campoEmail;
+    private EditText campoTelefone;
+    alunoDAO dao = new alunoDAO();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,28 +39,43 @@ public class FormularioAlunoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setTitle(TITULO_APPBAR);
 
-        setTitle("Cadastro de alunos");
+        inicializaçãoDosCampos();
+        botaoSalvarAluno();
+    }
 
-        alunoDAO dao = new alunoDAO();
-
-        final EditText campoNome = findViewById(R.id.activity_formulario_aluno_nome);
-        final EditText campoEmail = findViewById(R.id.activity_formulario_aluno_email);
-        final EditText campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
-
+    private void botaoSalvarAluno() {
         Button botaoSalvar = findViewById(R.id.activity_formulario_aluno_btn_enviar);
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nome = campoNome.getText().toString();
-                String email = campoEmail.getText().toString();
-                String telefone = campoTelefone.getText().toString();
-
-                Aluno alunoCriado = new Aluno(nome, email, telefone);
-                dao.salva(alunoCriado);
-
-                finish();
+                Aluno alunoCriado = getAlunoCriado();
+                salvarAluno(alunoCriado);
             }
         });
     }
+
+    private void inicializaçãoDosCampos() {
+        campoNome = findViewById(R.id.activity_formulario_aluno_nome);
+        campoEmail = findViewById(R.id.activity_formulario_aluno_email);
+        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
+    }
+
+    private void salvarAluno(Aluno alunoCriado) {
+        dao.salva(alunoCriado);
+        finish();
+    }
+
+    @NonNull
+    private Aluno getAlunoCriado() {
+        String nome = campoNome.getText().toString();
+        String email = campoEmail.getText().toString();
+        String telefone = campoTelefone.getText().toString();
+
+        Aluno alunoCriado = new Aluno(nome, email, telefone);
+        return alunoCriado;
+    }
+
+
 }
