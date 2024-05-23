@@ -1,13 +1,11 @@
 package com.example.agenda.ui.activitys;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -15,11 +13,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.agenda.R;
-import com.example.agenda.dao.alunoDAO;
+import com.example.agenda.dao.AlunoDAO;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ListaAlunosActivity extends AppCompatActivity {
-    private final alunoDAO dao = new alunoDAO();
+    private final AlunoDAO dao = new AlunoDAO();
 
     public static final String TITLE_APPBAR = "lista de alunos";
 

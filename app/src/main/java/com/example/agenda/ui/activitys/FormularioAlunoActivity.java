@@ -1,11 +1,9 @@
 package com.example.agenda.ui.activitys;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -15,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.agenda.R;
-import com.example.agenda.dao.alunoDAO;
+import com.example.agenda.dao.AlunoDAO;
 import com.example.agenda.models.Aluno;
 
 import org.jetbrains.annotations.Nullable;
@@ -26,7 +24,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private EditText campoNome;
     private EditText campoEmail;
     private EditText campoTelefone;
-    private alunoDAO dao = new alunoDAO();
+    private AlunoDAO dao = new AlunoDAO();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
