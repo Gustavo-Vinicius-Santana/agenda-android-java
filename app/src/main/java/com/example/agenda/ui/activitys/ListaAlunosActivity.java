@@ -2,9 +2,12 @@ package com.example.agenda.ui.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,5 +65,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
         listaAlunos.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 dao.todos()));
+        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("posição", " " + position);
+                Toast.makeText(ListaAlunosActivity.this, "aluno clicado", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
