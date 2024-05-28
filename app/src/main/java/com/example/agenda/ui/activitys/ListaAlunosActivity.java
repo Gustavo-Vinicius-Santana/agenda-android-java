@@ -17,7 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.agenda.R;
 import com.example.agenda.dao.AlunoDAO;
+import com.example.agenda.models.Aluno;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class ListaAlunosActivity extends AppCompatActivity {
     private final AlunoDAO dao = new AlunoDAO();
@@ -62,14 +65,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     private void mostrarLista() {
         ListView listaAlunos = findViewById(R.id.activity_main_list_alun);
+        final List<Aluno> todosAlunos = dao.todos();
         listaAlunos.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                dao.todos()));
+                todosAlunos));
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Aluno alunoClicado = todosAlunos.get(position);
+
+                Intent vaiParaFormulario = new Intent(ListaAlunosActivity.this,
+                        FormularioAlunoActivity.class);
+                vaiParaFormulario.putExtra("aluno", alunoClicado);
+                startActivity(vaiParaFormulario);
+
                 Log.i("posição", " " + position);
-                Toast.makeText(ListaAlunosActivity.this, "aluno clicado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListaAlunosActivity.this,
+                        "aluno clicado: " + alunoClicado,
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

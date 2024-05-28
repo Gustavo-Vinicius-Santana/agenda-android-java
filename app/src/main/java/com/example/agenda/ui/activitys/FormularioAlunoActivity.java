@@ -1,5 +1,6 @@
 package com.example.agenda.ui.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import com.example.agenda.dao.AlunoDAO;
 import com.example.agenda.models.Aluno;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.io.Serializable;
 
 public class FormularioAlunoActivity extends AppCompatActivity {
 
@@ -41,6 +44,13 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
         inicializaçãoDosCampos();
         botaoSalvarAluno();
+
+        Intent dados = getIntent();
+        Aluno aluno = (Aluno) dados.getSerializableExtra("aluno");
+
+        campoNome.setText(aluno.getNome());
+        campoEmail.setText(aluno.getEmail());
+        campoTelefone.setText(aluno.getTelefone());
     }
 
     private void botaoSalvarAluno() {
