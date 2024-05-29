@@ -40,6 +40,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         setTitle(TITLE_APPBAR);
         floatBtnOpenFormu();
+
+        Aluno aluno1 = new Aluno("pedro", "pedro@gmail.com", "123");
+        dao.salva(aluno1);
+
+        Aluno aluno2 = new Aluno("maria", "maria@gmail.com", "123");
+        dao.salva(aluno2);
     }
 
     private void floatBtnOpenFormu() {
