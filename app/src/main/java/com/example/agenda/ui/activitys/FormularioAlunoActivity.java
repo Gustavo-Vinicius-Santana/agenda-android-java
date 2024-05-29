@@ -47,11 +47,15 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         botaoSalvarAluno();
 
         Intent dados = getIntent();
-        aluno = (Aluno) dados.getSerializableExtra("aluno");
+        if(dados.hasExtra("aluno")){
+            aluno = (Aluno) dados.getSerializableExtra("aluno");
 
-        campoNome.setText(aluno.getNome());
-        campoEmail.setText(aluno.getEmail());
-        campoTelefone.setText(aluno.getTelefone());
+            campoNome.setText(aluno.getNome());
+            campoEmail.setText(aluno.getEmail());
+            campoTelefone.setText(aluno.getTelefone());
+        }else{
+            aluno = new Aluno();
+        }
     }
 
     private void botaoSalvarAluno() {
@@ -59,11 +63,14 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Aluno alunoCriado = getAlunoCriado();
-//                salvarAluno(alunoCriado);
-
                 preencheAluno();
-                dao.edita(aluno);
+                if(aluno.temIdValido()){
+                    dao.edita(aluno);
+                }else{
+                    dao.salva(aluno);
+                }
+                finish();
+
             }
         });
     }
@@ -72,21 +79,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         campoNome = findViewById(R.id.activity_formulario_aluno_nome);
         campoEmail = findViewById(R.id.activity_formulario_aluno_email);
         campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
-    }
-
-    private void salvarAluno(Aluno alunoCriado) {
-        dao.salva(alunoCriado);
-        finish();
-    }
-
-    @NonNull
-    private Aluno getAlunoCriado() {
-        String nome = campoNome.getText().toString();
-        String email = campoEmail.getText().toString();
-        String telefone = campoTelefone.getText().toString();
-
-        Aluno alunoCriado = new Aluno(nome, email, telefone);
-        return alunoCriado;
     }
 
     @NonNull

@@ -16,6 +16,10 @@ public class Aluno implements Serializable {
         this.telefone = telefone;
     }
 
+    public Aluno() {
+
+    }
+
     public void setId(int id){
         this.id = id;
 
@@ -53,5 +57,9 @@ public class Aluno implements Serializable {
     @Override
     public String toString() {
         return nome;
+    }
+
+    public boolean temIdValido() {
+        return id > 0;
     }
 }
