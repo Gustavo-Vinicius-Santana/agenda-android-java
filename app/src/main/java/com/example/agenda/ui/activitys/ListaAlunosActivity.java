@@ -41,6 +41,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             return insets;
         });
 
+        mostrarLista();
         setTitle(TITLE_APPBAR);
         floatBtnOpenFormu();
     }
@@ -63,16 +64,23 @@ public class ListaAlunosActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        mostrarLista();
+        atualizaLista();
+    }
+
+    private void atualizaLista() {
+        adapter.clear();
+        adapter.addAll(dao.todos());
     }
 
     private void mostrarLista() {
         ListView listaAlunos = findViewById(R.id.activity_main_list_alun);
-        final List<Aluno> todosAlunos = dao.todos();
-        configuraAdpter(listaAlunos, todosAlunos);
+        configuraAdpter(listaAlunos);
 
         configuraListenerDeClick(listaAlunos);
+        configuraListenerDeLongClick(listaAlunos);
+    }
 
+    private void configuraListenerDeLongClick(ListView listaAlunos) {
         listaAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,10 +115,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
         startActivity(vaiParaFormulario);
     }
 
-    private void configuraAdpter(ListView listaAlunos, List<Aluno> todosAlunos) {
+    private void configuraAdpter(ListView listaAlunos) {
         adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                todosAlunos);
+                android.R.layout.simple_list_item_1);
         listaAlunos.setAdapter(adapter);
     }
 }
