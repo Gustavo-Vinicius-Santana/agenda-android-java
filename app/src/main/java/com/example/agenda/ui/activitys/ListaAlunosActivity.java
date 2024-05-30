@@ -28,6 +28,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private final AlunoDAO dao = new AlunoDAO();
 
     public static final String TITLE_APPBAR = "lista de alunos";
+    private ArrayAdapter<Aluno> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,12 +43,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         setTitle(TITLE_APPBAR);
         floatBtnOpenFormu();
-
-        Aluno aluno1 = new Aluno("pedro", "pedro@gmail.com", "123");
-        dao.salva(aluno1);
-
-        Aluno aluno2 = new Aluno("maria", "maria@gmail.com", "123");
-        dao.salva(aluno2);
     }
 
     private void floatBtnOpenFormu() {
@@ -75,7 +70,22 @@ public class ListaAlunosActivity extends AppCompatActivity {
         ListView listaAlunos = findViewById(R.id.activity_main_list_alun);
         final List<Aluno> todosAlunos = dao.todos();
         configuraAdpter(listaAlunos, todosAlunos);
+
         configuraListenerDeClick(listaAlunos);
+
+        listaAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Aluno alunoClicado = (Aluno) parent.getItemAtPosition(position);
+
+                Toast.makeText(ListaAlunosActivity.this,
+                        "Aluno: " + alunoClicado + " foi removido", Toast.LENGTH_SHORT).show();
+
+                dao.remove(alunoClicado);
+                adapter.remove(alunoClicado);
+                return true;
+            }
+        });
     }
 
     private void configuraListenerDeClick(ListView listaAlunos) {
@@ -98,8 +108,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     private void configuraAdpter(ListView listaAlunos, List<Aluno> todosAlunos) {
-        listaAlunos.setAdapter(new ArrayAdapter<>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                todosAlunos));
+                todosAlunos);
+        listaAlunos.setAdapter(adapter);
     }
 }
