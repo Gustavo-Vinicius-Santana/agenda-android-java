@@ -1,5 +1,6 @@
 package com.example.agenda.ui.activitys;
 
+import static com.example.agenda.ui.activitys.ConstantesActivities.CHAVE_ALUNO;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +24,8 @@ import java.io.Serializable;
 
 public class FormularioAlunoActivity extends AppCompatActivity {
 
-    public static final String TITULO_APPBAR = "Cadastro de alunos";
+    public static final String TITULO_APPBAR_NOVO_ALUNO = "Cadastro de alunos";
+    public static final String TITULO_APPBAR_EDITA_ALUNO = "Editar aluno";
     private EditText campoNome;
     private EditText campoEmail;
     private EditText campoTelefone;
@@ -41,21 +43,30 @@ public class FormularioAlunoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        setTitle(TITULO_APPBAR);
 
         inicializaçãoDosCampos();
         botaoSalvarAluno();
 
-        Intent dados = getIntent();
-        if(dados.hasExtra("aluno")){
-            aluno = (Aluno) dados.getSerializableExtra("aluno");
+        carregaAluno();
+    }
 
-            campoNome.setText(aluno.getNome());
-            campoEmail.setText(aluno.getEmail());
-            campoTelefone.setText(aluno.getTelefone());
+    private void carregaAluno() {
+        Intent dados = getIntent();
+        if(dados.hasExtra(CHAVE_ALUNO)){
+            setTitle(TITULO_APPBAR_EDITA_ALUNO);
+            aluno = (Aluno) dados.getSerializableExtra(CHAVE_ALUNO);
+
+            preencheCampos();
         }else{
+            setTitle(TITULO_APPBAR_NOVO_ALUNO);
             aluno = new Aluno();
         }
+    }
+
+    private void preencheCampos() {
+        campoNome.setText(aluno.getNome());
+        campoEmail.setText(aluno.getEmail());
+        campoTelefone.setText(aluno.getTelefone());
     }
 
     private void botaoSalvarAluno() {
@@ -64,15 +75,19 @@ public class FormularioAlunoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 preencheAluno();
-                if(aluno.temIdValido()){
-                    dao.edita(aluno);
-                }else{
-                    dao.salva(aluno);
-                }
-                finish();
+                finalizaFormulario();
 
             }
         });
+    }
+
+    private void finalizaFormulario() {
+        if(aluno.temIdValido()){
+            dao.edita(aluno);
+        }else{
+            dao.salva(aluno);
+        }
+        finish();
     }
 
     private void inicializaçãoDosCampos() {

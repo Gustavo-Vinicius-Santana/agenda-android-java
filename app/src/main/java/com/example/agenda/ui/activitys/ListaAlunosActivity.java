@@ -1,5 +1,7 @@
 package com.example.agenda.ui.activitys;
 
+import static com.example.agenda.ui.activitys.ConstantesActivities.CHAVE_ALUNO;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,12 +55,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
         botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abreFormulario();
+                abreFormularioModoInsereAluno();
             }
         });
     }
 
-    private void abreFormulario() {
+    private void abreFormularioModoInsereAluno() {
         startActivity(new Intent(this, FormularioAlunoActivity.class));
     }
 
@@ -72,24 +74,32 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private void mostrarLista() {
         ListView listaAlunos = findViewById(R.id.activity_main_list_alun);
         final List<Aluno> todosAlunos = dao.todos();
-        listaAlunos.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                todosAlunos));
+        configuraAdpter(listaAlunos, todosAlunos);
+        configuraListenerDeClick(listaAlunos);
+    }
+
+    private void configuraListenerDeClick(ListView listaAlunos) {
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Aluno alunoClicado = todosAlunos.get(position);
+                Aluno alunoClicado = (Aluno) parent.getItemAtPosition(position);
 
-                Intent vaiParaFormulario = new Intent(ListaAlunosActivity.this,
-                        FormularioAlunoActivity.class);
-                vaiParaFormulario.putExtra("aluno", alunoClicado);
-                startActivity(vaiParaFormulario);
-
-                Log.i("posição", " " + position);
-                Toast.makeText(ListaAlunosActivity.this,
-                        "aluno clicado: " + alunoClicado,
-                        Toast.LENGTH_SHORT).show();
+                abreFormularioModoEditaAluno(alunoClicado);
             }
         });
+    }
+
+    private void abreFormularioModoEditaAluno(Aluno alunoClicado) {
+        Intent vaiParaFormulario = new Intent(ListaAlunosActivity.this,
+                FormularioAlunoActivity.class);
+
+        vaiParaFormulario.putExtra(CHAVE_ALUNO, alunoClicado);
+        startActivity(vaiParaFormulario);
+    }
+
+    private void configuraAdpter(ListView listaAlunos, List<Aluno> todosAlunos) {
+        listaAlunos.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                todosAlunos));
     }
 }
