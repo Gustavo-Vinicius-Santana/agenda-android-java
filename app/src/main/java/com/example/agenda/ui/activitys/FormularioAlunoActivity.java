@@ -3,6 +3,8 @@ package com.example.agenda.ui.activitys;
 import static com.example.agenda.ui.activitys.ConstantesActivities.CHAVE_ALUNO;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,9 +47,24 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         });
 
         inicializaçãoDosCampos();
-        botaoSalvarAluno();
 
         carregaAluno();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_formulario_aluno_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.activity_formulario_aluno_menu_salvar){
+            preencheAluno();
+            finalizaFormulario();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void carregaAluno() {
@@ -67,18 +84,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         campoNome.setText(aluno.getNome());
         campoEmail.setText(aluno.getEmail());
         campoTelefone.setText(aluno.getTelefone());
-    }
-
-    private void botaoSalvarAluno() {
-        Button botaoSalvar = findViewById(R.id.activity_formulario_aluno_btn_enviar);
-        botaoSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                preencheAluno();
-                finalizaFormulario();
-
-            }
-        });
     }
 
     private void finalizaFormulario() {
