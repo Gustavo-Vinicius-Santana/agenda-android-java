@@ -5,12 +5,15 @@ import static com.example.agenda.ui.activitys.ConstantesActivities.CHAVE_ALUNO;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -46,6 +49,27 @@ public class ListaAlunosActivity extends AppCompatActivity {
         floatBtnOpenFormu();
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.add("Remover");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
+        removeAlun(alunoEscolhido);
+
+        Toast.makeText(ListaAlunosActivity.this,
+                "Aluno: " + alunoEscolhido + " foi removido", Toast.LENGTH_SHORT).show();
+
+        return super.onContextItemSelected(item);
+    }
+
     private void floatBtnOpenFormu() {
         FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_main_abrir_formulario);
         botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +102,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         configuraListenerDeClick(listaAlunos);
         configuraListenerDeLongClick(listaAlunos);
+        
+        registerForContextMenu(listaAlunos);
     }
 
     private void configuraListenerDeLongClick(ListView listaAlunos) {
@@ -86,14 +112,14 @@ public class ListaAlunosActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Aluno alunoClicado = (Aluno) parent.getItemAtPosition(position);
 
-                Toast.makeText(ListaAlunosActivity.this,
-                        "Aluno: " + alunoClicado + " foi removido", Toast.LENGTH_SHORT).show();
-
-                dao.remove(alunoClicado);
-                adapter.remove(alunoClicado);
-                return true;
+                return false;
             }
         });
+    }
+
+    private void removeAlun(Aluno alunoClicado) {
+        dao.remove(alunoClicado);
+        adapter.remove(alunoClicado);
     }
 
     private void configuraListenerDeClick(ListView listaAlunos) {
