@@ -2,6 +2,9 @@ package com.example.agenda.ui.activitys;
 
 import static com.example.agenda.ui.activitys.ConstantesActivities.CHAVE_ALUNO;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,17 +69,33 @@ public class ListaAlunosActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if(itemId == R.id.activity_lista_alunos_menu_remover){
-            AdapterView.AdapterContextMenuInfo menuInfo =
-                    (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-            Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
-            removeAlun(alunoEscolhido);
-
-            Toast.makeText(ListaAlunosActivity.this,
-                    "Aluno: " + alunoEscolhido + " foi removido", Toast.LENGTH_SHORT).show();
+            confirmaRemocao(item);
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    private void confirmaRemocao(@NonNull final MenuItem item) {
+        new AlertDialog
+                .Builder(this).setTitle("Removendo aluno")
+                .setMessage("tem certeza que deseja remover o aluno?")
+                .setPositiveButton("sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AdapterView.AdapterContextMenuInfo menuInfo =
+                                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+                        Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
+                        removeAlun(alunoEscolhido);
+
+                        Toast.makeText(ListaAlunosActivity.this,
+                                "Aluno: " + alunoEscolhido + " foi removido", Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .setNegativeButton("não", null)
+                .show();
     }
 
     private void floatBtnOpenFormu() {
