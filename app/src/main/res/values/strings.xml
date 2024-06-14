@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">agenda</string>
     <string name="add_item">Adicionar item</string>
+    <string name="remover">Remover</string>
+    <string name="nome">Nome</string>
+    <string name="email">Email</string>
+    <string name="telefone">Telefone</string>
+    <string name="salvar">Salvar</string>
 </resources>

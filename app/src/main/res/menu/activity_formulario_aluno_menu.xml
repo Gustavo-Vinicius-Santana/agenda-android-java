@@ -6,7 +6,7 @@
     <item
         android:id="@+id/activity_formulario_aluno_menu_salvar"
         android:icon="@drawable/ic_action_salvar"
-        android:title="Salvar"
+        android:title="@string/salvar"
         app:showAsAction="always"
     />
 

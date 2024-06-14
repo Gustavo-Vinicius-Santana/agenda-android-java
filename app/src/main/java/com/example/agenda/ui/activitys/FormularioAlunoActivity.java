@@ -46,7 +46,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
             return insets;
         });
 
-        inicializaçãoDosCampos();
+        iniciaCampos();
 
         carregaAluno();
     }
@@ -95,7 +95,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         finish();
     }
 
-    private void inicializaçãoDosCampos() {
+    private void iniciaCampos() {
         campoNome = findViewById(R.id.activity_formulario_aluno_nome);
         campoEmail = findViewById(R.id.activity_formulario_aluno_email);
         campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);

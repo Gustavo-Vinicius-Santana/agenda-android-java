@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:contentDescription="@string/add_item"
+        android:focusable="true"
         app:srcCompat="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
