@@ -3,19 +3,13 @@ package com.example.agenda.ui.activitys;
 import static com.example.agenda.ui.activitys.ConstantesActivities.CHAVE_ALUNO;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,9 +25,6 @@ import com.example.agenda.dao.AlunoDAO;
 import com.example.agenda.models.Aluno;
 import com.example.agenda.ui.adapter.ListaAlunoAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ListaAlunosActivity extends AppCompatActivity {
     private final AlunoDAO dao = new AlunoDAO();

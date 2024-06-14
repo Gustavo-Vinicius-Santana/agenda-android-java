@@ -9,14 +9,13 @@ import android.widget.TextView;
 
 import com.example.agenda.R;
 import com.example.agenda.models.Aluno;
-import com.example.agenda.ui.activitys.ListaAlunosActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListaAlunoAdapter extends BaseAdapter {
     private final List<Aluno> alunos = new ArrayList<>();
-    private Context context;
+    private final Context context;
 
     public ListaAlunoAdapter(Context context) {
         this.context = context;

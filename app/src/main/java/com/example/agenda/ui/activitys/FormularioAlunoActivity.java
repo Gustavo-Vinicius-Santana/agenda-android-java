@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -22,8 +20,6 @@ import com.example.agenda.models.Aluno;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.Serializable;
-
 public class FormularioAlunoActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR_NOVO_ALUNO = "Cadastro de alunos";
@@ -31,7 +27,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private EditText campoNome;
     private EditText campoEmail;
     private EditText campoTelefone;
-    private AlunoDAO dao = new AlunoDAO();
+    private final AlunoDAO dao = new AlunoDAO();
     private Aluno aluno;
 
     @Override
