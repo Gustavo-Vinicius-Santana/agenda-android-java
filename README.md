@@ -14,8 +14,8 @@ Este sistema Android foi desenvolvido em Java e permite o cadastro de alunos, in
 
 1. **Clone o repositorio**
      ```bash
-         git clone https://github.com/Gustavo-Vinicius-Santana/agenda-android
-         cd agenda-android
+         git clone https://github.com/Gustavo-Vinicius-Santana/agenda-android-java
+         cd agenda-android-java
      ```
 
 2. **Abrir o Projeto no Android Studio**:
